@@ -2,28 +2,34 @@ import axios from 'axios';
 import { useState } from 'react';
 import './Banner.css';
 import useAuth from '../../Hooks/useAuth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Banner = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [output, setOutput] = useState('');
     const [inputVal, setInputVal] = useState('');
 
     const navigate = useNavigate();
+    
 
     // const outputData = output.replace(/(\d+\.)/g, '\n$1');
 
     const outputBG = output ? 'bg-slate-200' : '';
 
     const handleTestAi = async (value) => {
-        if(!user){
-            return navigate('/login');
+
+        if (!value) {
+            return alert('Please Provide Any Query...');
+        }
+
+        if (!user) {
+            return navigate('/register');
         }
 
         if (inputVal) {
             const data = await axios.get(`https://crack-ai-server-lovat.vercel.app/test-ai?prompt=${value}`)
             setOutput(data.data);
-            
+
             // http://localhost:3100/test-ai?
             // https://crack-ai-server-lovat.vercel.app/test-ai
         }

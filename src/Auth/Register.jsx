@@ -9,7 +9,7 @@ const Register = () => {
     const handleGoogleLogIn = () => {
         signInWithGoogle()
             .then(result => {
-                setUser(result.user);
+                setUser(result?.user);
                 navigate('/');
             }).catch(err => err)
     }
