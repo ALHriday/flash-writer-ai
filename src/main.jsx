@@ -9,10 +9,10 @@ import Routers from './Routers/Routers.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-       <Routers></Routers>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routers></Routers>
+      </BrowserRouter>
+    </AuthProvider>
   </StrictMode>,
 )
