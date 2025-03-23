@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
+import axios from 'axios';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
@@ -8,7 +9,8 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [currentUserInfo, setCurrentUserInfo] = useState([]);
+    
 
     const signInWithGoogle = () => {
         setLoading(true);
@@ -23,7 +25,6 @@ const AuthProvider = ({ children }) => {
 
     const handleSignOut = () => {
         signOutUser().then(() => {
-            alert('SignOut Successful');
             setUser(null);
             setLoading(false);
         }).catch(err => err);
@@ -41,7 +42,9 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            setLoading(false);        
+            setLoading(false);  
+            axios.get(`https://crack-ai-server-lovat.vercel.app/users/${currentUser?.email}`).then(data => setCurrentUserInfo(data.data[0])
+        )      
         });
         return () => unSubscribe();
     }, [])
@@ -55,6 +58,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createAccountWithEmailAndPass,
         signInWithEmailAndPass,
+        currentUserInfo
     }
 
     return (

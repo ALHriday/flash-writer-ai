@@ -30,7 +30,7 @@ const Banner = () => {
             const data = await axios.get(`https://crack-ai-server-lovat.vercel.app/test-ai?prompt=${value}`)
             setOutput(data.data);
 
-            // http://localhost:3100/test-ai?
+            // https://crack-ai-server-lovat.vercel.app/test-ai?
             // https://crack-ai-server-lovat.vercel.app/test-ai
         }
     }
