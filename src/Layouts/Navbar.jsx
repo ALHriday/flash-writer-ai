@@ -10,7 +10,7 @@ const Navbar = () => {
                 <Link to='/' className="text-2xl font-bold"><span className="text-accent ">FlashWriter</span> <span className="text-2xl text-secondary">AI</span></Link>
             </div>
             <div className="flex justify-center items-center gap-2">
-                <h1>{user?.displayName}</h1>
+                <h1>{user?.displayName || user?.email}</h1>
                 <ul className="menu menu-horizontal px-1 gap-2">
                     {!user ? <>
                         <Link className="btn btn-accent" to='/login'>Login</Link>
